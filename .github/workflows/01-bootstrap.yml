@@ -1,0 +1,37 @@
+name: 01 - Manually Bootstrap the CDK Environment
+
+on:
+  workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Bootstrap CDK
+    environment: dev
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: 'maven'
+
+      - name: get credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          managed-session-policies: arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+      - name: NPM install
+        run: npm install
+
+      - name: Deploy CDK bootstrap stack
+        run: npm run bootstrap
+

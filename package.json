@@ -1,0 +1,13 @@
+{
+  "name": "ec2-github-action",
+  "version": "1.0.0",
+  "description": "IAC",
+  "scripts": {
+    "bootstrap": "cdk bootstrap --app 'mvn -e -q compile exec:java -Dexec.mainClass=com.myorg.BootstrapApp'"
+  },
+  "author": "me",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-cdk": "^2.151.0"
+  }
+}
