@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "IAC",
   "scripts": {
-    "bootstrap": "cdk bootstrap --app 'mvn -e -q compile exec:java -Dexec.mainClass=com.myorg.BootstrapApp'"
+    "bootstrap": "cdk bootstrap --app 'mvn -e -q compile exec:java -Dexec.mainClass=com.myorg.BootstrapApp'",
+    "ec2:deploy": "cdk deploy --app 'mvn -e -q compile exec:java -Dexec.mainClass=com.myorg.Ec2GithubActionApp' --require-approval never",
+    "ec2:destroy": "cdk destroy --app 'mvn -e -q compile exec:java -Dexec.mainClass=com.myorg.Ec2GithubActionApp' --force --require-approval never"
   },
   "author": "me",
   "license": "ISC",

@@ -12,6 +12,11 @@
     ]
   },
   "context": {
+    "accountId": "211125653318",
+    "region": "eu-central-2",
+    "applicationName": "ec2App",
+    "environmentName": "development",
+
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
     "@aws-cdk/core:checkSecretUsage": true,
     "@aws-cdk/core:target-partitions": [
