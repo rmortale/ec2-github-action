@@ -1,21 +1,22 @@
 name: 02 - Manually deploy ec2 instance
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+
 on:
   workflow_dispatch:
     inputs:
-      region:
-        description: 'The name of the AWS region in which to deploy the specific environment resources.'
+      environmentName:
+        description: 'The name of the environment to create.'
         required: true
-        default: 'eu-central-2'
-
-permissions:
-  id-token: write
-  contents: read
+        default: 'development'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Bootstrap CDK
+    name: Deploy EC2
     environment: dev
     if: github.ref == 'refs/heads/main'
     steps:
@@ -29,15 +30,9 @@ jobs:
           java-version: 17
           cache: 'maven'
 
-      - name: get credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ${{ inputs.region }}
-          role-to-assume: arn:aws:iam::211125653318:role/ConfigureGithubOIDCProvider-Role-UdpH8xZ7nutG
-
       - name: NPM install
         run: npm install
 
       - name: Deploy CDK bootstrap stack
-        run: npm run ec2:deploy
+        run: npm run ec2:deploy -- -c environmentName=${{ github.event.inputs.environmentName }}
 
