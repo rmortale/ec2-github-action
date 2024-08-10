@@ -1,4 +1,4 @@
-name: 01 - Manually Bootstrap the CDK Environment
+name: 02 - Manually deploy ec2 instance
 
 on:
   workflow_dispatch:
