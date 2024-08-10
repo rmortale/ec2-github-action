@@ -1,7 +1,12 @@
 name: 01 - Manually Bootstrap the CDK Environment
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'The name of the AWS region in which to deploy the specific environment resources.'
+        required: true
+        default: 'eu-central-2'
 
 permissions:
   id-token: write
@@ -27,6 +32,7 @@ jobs:
       - name: get credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
+          region: ${{ inputs.region }}
           managed-session-policies: arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
 
       - name: NPM install
