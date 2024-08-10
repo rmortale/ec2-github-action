@@ -32,7 +32,7 @@ jobs:
       - name: get credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          region: ${{ inputs.region }}
+          aws-region: ${{ inputs.region }}
           managed-session-policies: arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
 
       - name: NPM install
